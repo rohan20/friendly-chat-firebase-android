@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (user != null) {
                     //user is logged in
-                    Toast.makeText(MainActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Already logged in", Toast.LENGTH_SHORT).show();
                 } else {
                     //user is not logged in
                     startActivityForResult(
@@ -184,7 +184,8 @@ public class MainActivity extends AppCompatActivity {
                                     .setIsSmartLockEnabled(false)
                                     .setAvailableProviders(
                                             Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
+                                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
+                                    )
                                     .build(),
                             RC_SIGN_IN);
                 }
