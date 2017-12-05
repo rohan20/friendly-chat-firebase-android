@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseStorage mFirebaseStorage;
+    private FirebaseUser mFirebaseUser;
 
     private DatabaseReference mMessagesDatabaseReference;
     private StorageReference mChatPhotosStorageReference;
@@ -181,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (user != null) {
                     //user is logged in
+                    mUsername = user.getDisplayName();
 //                    Toast.makeText(MainActivity.this, "Already logged in", Toast.LENGTH_SHORT).show();
                 } else {
                     //user is not logged in
@@ -241,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, downloadUrl.toString());
+                            mMessagesDatabaseReference.push().setValue(friendlyMessage);
                         }
                     });
                 }
